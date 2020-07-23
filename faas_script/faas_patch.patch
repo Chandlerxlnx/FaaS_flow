@@ -1,0 +1,38 @@
+From 62d509d225f006ad7ef055f3d39cf3072334f6d7 Mon Sep 17 00:00:00 2001
+From: Chandler Zhao <zhao_chunxiao@hotmail.com>
+Date: Thu, 23 Jul 2020 10:47:58 -0400
+Subject: [PATCH] add faas_utils.mk for compiling script for FaaS in cloud
+ environment
+
+---
+ hello_world/Makefile      | 1 +
+ hello_world/faas_utils.mk | 5 +++++
+ 2 files changed, 6 insertions(+)
+ create mode 100755 hello_world/faas_utils.mk
+
+diff --git a/hello_world/Makefile b/hello_world/Makefile
+index 15317a2..bdf25c7 100755
+--- a/hello_world/Makefile
++++ b/hello_world/Makefile
+@@ -37,6 +37,7 @@ TARGET := hw
+ HOST_ARCH := x86
+ SYSROOT := 
+ 
++include ./faas_utils.mk
+ include ./utils.mk
+ 
+ XSA := $(call device2xsa, $(DEVICE))
+diff --git a/hello_world/faas_utils.mk b/hello_world/faas_utils.mk
+new file mode 100755
+index 0000000..f43fa5a
+--- /dev/null
++++ b/hello_world/faas_utils.mk
+@@ -0,0 +1,5 @@
++XCLBIN_TYPE :=DCP
++
++ifeq ($(XCLBIN_TYPE),DCP)
++	CLFLAGS += --xp param:compile.acceleratorBinaryContent=dcp
++endif
+-- 
+1.8.3.1
+
