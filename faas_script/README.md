@@ -3,6 +3,7 @@
 
   In this example, Makefile will include faas_utils.mk which is setting to generate xclbin containing DCP.
 
+approach 1, apply script by git patch.
 CMD:
 ```bash
    git submodule add //github.com/Xilinx/Vitis_Accel_Examples.git
@@ -11,4 +12,16 @@ CMD:
 
    make build DEVICE=<platform> 
    
+```
+
+approach 2, apply scripts manually.
+  step:
+   1. 
+```bash
+    cd Vitis_Accel_EXample/hello_world
+    cp ../../faas_scripts/faas_utils.mk .
+```
+  2. modify the Makefile and add line below
+```bash
+   include ./faas_utils.mk
 ```
