@@ -1,3 +1,3 @@
 [submodule "Vitis_Accel_Examples"]
 	path = Vitis_Accel_Examples
-	url = /media/vshare/github/Vitis_Accel_Examples/
+	url = https://github.com/Xilinx/Vitis_Accel_Examples.git
