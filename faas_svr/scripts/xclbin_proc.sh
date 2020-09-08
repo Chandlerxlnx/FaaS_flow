@@ -7,7 +7,7 @@
 
 if  [ $# != 1 ]
 then
-  echo "Usage: xclbin_proc.sh <kernal name>.xclbin"
+  echo "Usage: xclbin_proc.sh <kernal name>[.xclbin]"
   exit
 fi
 
