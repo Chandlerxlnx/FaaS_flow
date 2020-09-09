@@ -15,7 +15,7 @@ if {$status} {
    write_bitstream -force kernel.bit
    puts "INFO: kernel bitstream is generated."
    exit 0
-   } else {
+} else {
    puts "Error: pr_verify Failed. No bitstream generated"
    exit 1
 }
