@@ -23,12 +23,12 @@ fi
 rm -rf kernel*.bit
 rm -rf kernel.dcp
 
-xclbinutil --force --dump-section BITSTREAM:RAW:kernel.dcp --input $xcl_file
+xclbinutil --skip-uuid-insertion --force --dump-section BITSTREAM:RAW:kernel.dcp --input $xcl_file
 
 
 vivado -mode tcl -source ../scripts/faas_verify.tcl
 
-xclbinutil --force --remove-section BITSTREAM --input $xcl_file --output ${xcl_prefix}_dummy.xclbin
+xclbinutil --skip-uuid-insertion --force --remove-section BITSTREAM --input $xcl_file --output ${xcl_prefix}_dummy.xclbin
 
 if grep -q "^INFO:.*PR_VERIFY.*are compatible" chk_result.txt
 then
@@ -40,7 +40,7 @@ then
   then
 
      #xclbinutil --add-section BITSTREAM:RAW:kernel_pblock_region_partial.bit --input $1_dummy.xclbin --output $1_bit.xclbin
-     xclbinutil --force --add-section BITSTREAM:RAW:$partial_bit --input ${xcl_prefix}_dummy.xclbin --output ${xcl_prefix}_bit.xclbin
+     xclbinutil --skip-uuid-insertion --force --add-section BITSTREAM:RAW:$partial_bit --input ${xcl_prefix}_dummy.xclbin --output ${xcl_prefix}_bit.xclbin
   else
     echo "Error: Partial bit file is null!"  
   fi
