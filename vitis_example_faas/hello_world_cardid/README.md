@@ -45,3 +45,38 @@ cd cmake_build
 cmake -G "Visual Studio 15 2017 Win64" -DCMAKE_BUILD_TYPE=Debug -DXILINX_XRT=C:\Xilinx\XRT -DOCL_ROOT=C:\Xilinx\XRT\ext
 cmake --build . --verbose --config Debug --target install
 ```
+
+## key code to determind the card ID in args
+
+* parser divice id in args
+```C
+  sda::utils::CmdLineParser parser;
+  parser.addSwitch("--xclbin", "-xc", "XCLBIN", "vadd.xclbin");
+  parser.addSwitch("--id", "-id", "Device ID", "0");
+  parser.parse(argc, argv);
+
+  std::string binaryFile = parser.value("xclbin");
+  std::string device_ids = parser.value("id");
+
+  uint8_t device_id = 0;
+
+    if (!(device_ids.empty())) {
+        device_id = atoi(device_ids.c_str());
+    }
+
+
+
+```
+
+* selecting the device in devices[] list.
+
+```C
+ auto devices = xcl::get_xil_devices();
+  // read_binary_file() is a utility API which will load the binaryFile
+  // and will return the pointer to file buffer.
+  auto fileBuf = xcl::read_binary_file(binaryFile);
+  cl::Program::Binaries bins{{fileBuf.data(), fileBuf.size()}};
+  //...
+    auto device = devices[device_id];
+
+```
