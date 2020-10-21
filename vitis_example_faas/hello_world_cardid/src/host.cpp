@@ -37,6 +37,7 @@ EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 #include <algorithm>
 #include <vector>
 #include "cmdlineparser.h"
+#include <iostream>
 
 #define DATA_SIZE 4096
 
@@ -53,6 +54,9 @@ int main(int argc, char **argv) {
 
     if (!(device_ids.empty())) {
         device_id = atoi(device_ids.c_str());
+    }
+    else {
+         std::cout << "Warning: variable Device_ids is empty!\n";
     }
 
   size_t vector_size_bytes = sizeof(int) * DATA_SIZE;
@@ -100,13 +104,13 @@ int main(int argc, char **argv) {
     OCL_CHECK(err, context = cl::Context(device, NULL, NULL, NULL, &err));
     OCL_CHECK(err, q = cl::CommandQueue(context, device,
                                         CL_QUEUE_PROFILING_ENABLE, &err));
-    std::cout << "Trying to program device[" << device_id
+    std::cout << "Trying to program device[" << std::dec << (int)device_id
               << "]: " << device.getInfo<CL_DEVICE_NAME>() << std::endl;
     cl::Program program(context, {device}, bins, NULL, &err);
     if (err != CL_SUCCESS) {
-      std::cout << "Failed to program device[" << device_id << "] with xclbin file!\n";
+      std::cout << "Failed to program device[" << (int)device_id << "] with xclbin file!\n";
     } else {
-      std::cout << "Device[" << device_id << "]: program successful!\n";
+      std::cout << "Device[" << std::dec << (int)device_id << "]: program successful!\n";
       OCL_CHECK(err, krnl_vector_add = cl::Kernel(program, "vadd", &err));
       valid_device++;
     }
