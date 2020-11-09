@@ -31,7 +31,7 @@ help::
 
 ############################## Setting up Project Variables ##############################
 # Points to top directory of Git repository
-COMMON_REPO = ../
+COMMON_REPO = ..
 PWD = $(shell readlink -f .)
 ABS_COMMON_REPO = $(shell readlink -f $(COMMON_REPO))
 
@@ -65,10 +65,8 @@ CXXFLAGS += $(xcl2_CXXFLAGS)
 LDFLAGS  += $(xcl2_LDFLAGS)
 HOST_SRCS += $(xcl2_SRCS)
 CXXFLAGS += $(cmdparser_CXXFLAGS)
-LDFLAGS  += $(cmdparser_CXXFLAGS)
 HOST_SRCS += $(cmdparser_SRCS)
 CXXFLAGS += $(logger_CXXFLAGS)
-LDFLAGS  += $(logger_CXXFLAGS)
 HOST_SRCS += $(logger_SRCS)
 CXXFLAGS += $(opencl_CXXFLAGS) -Wall -O0 -g -std=c++11
 LDFLAGS += $(opencl_LDFLAGS)
